@@ -1,0 +1,33 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":gitSignOff",
+    "mergeConfidence:all-badges"
+  ],
+  "timezone": "Europe/Zurich",
+  "dependencyDashboardTitle": "Renovate Dashboard",
+  "assigneesFromCodeOwners": true,
+  "reviewersFromCodeOwners": true,
+  "suppressNotifications": ["prIgnoreNotification"],
+  "rebaseWhen": "conflicted",
+  "labels": ["renovate"],
+  "packageRules": [
+    // Setup datasources
+    {
+      "matchDatasources": ["helm"],
+      "commitMessageTopic": "Helm chart {{depName}}",
+      "separateMinorPatch": true
+    },
+    {
+      "matchDatasources": ["docker"],
+      "commitMessageTopic": "Docker image {{depName}}",
+      "commitMessageExtra": "to {{#if isSingleVersion}}v{{{newVersion}}}{{else}}{{{newValue}}}{{/if}}",
+      "matchUpdateTypes": ["major", "minor", "patch"],
+      "enabled": true
+    }
+  ]
+}
+
+
+
