@@ -1,0 +1,17 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Regex manager for '# renovate:' annotations above tag/appVersion/version keys",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "'# renovate: image=<image> [versioning=<v>]' or '# renovate: datasource=<ds> [depName=<n>] packageName=<p> [versioning=<v>]' on the line above a tag/appVersion/version key",
+      "managerFilePatterns": ["/\\.ya?ml$/"],
+      "matchStrings": [
+        "# renovate: image=(?<depName>\\S+?)(?: versioning=(?<versioning>[a-z-]+?))?\\s+(?:tag|appVersion|version):\\s?\"?(?<currentValue>[\\w+\\.\\-]+?)\"?\\s",
+        "# renovate: datasource=(?<datasource>[a-z-]+?)(?: depName=(?<depName>\\S+?))? packageName=(?<packageName>\\S+?)(?: versioning=(?<versioning>[a-z-]+?))?\\s+(?:tag|appVersion|version):\\s?\"?(?<currentValue>[\\w+\\.\\-]+?)\"?\\s"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}docker{{/if}}",
+      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}docker{{/if}}"
+    }
+  ]
+}
