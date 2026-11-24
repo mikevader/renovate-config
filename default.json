@@ -6,6 +6,7 @@
     "mergeConfidence:all-badges"
   ],
   "timezone": "Europe/Zurich",
+  "configMigration": true,
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard",
   "assigneesFromCodeOwners": true,
