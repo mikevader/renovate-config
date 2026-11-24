@@ -1,0 +1,25 @@
+name: Validate presets
+
+# Renovate never opens migration PRs for preset files, so this checks them
+# with the latest Renovate in strict mode: the run fails if a preset is
+# invalid or uses deprecated options that need migrating.
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Validate presets
+        run: npx --yes --package renovate@latest -- renovate-config-validator --strict *.json
